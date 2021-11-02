@@ -5,9 +5,9 @@
  * @license MIT http://opensource.org/licenses/MIT
  */
 
-namespace masoud92\jalaliDatePicker;
+namespace masoud91\jalaliDatePicker;
 
-use masoud92\jalaliDatePicker\jalaliDatePickerAsset;
+use masoud91\jalaliDatePicker\jalaliDatePickerAsset;
 
 use Yii;
 use yii\base\Model;
