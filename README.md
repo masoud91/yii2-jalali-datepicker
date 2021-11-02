@@ -31,7 +31,7 @@ Once the extension is installed, simply use it in your code by following code :
 
 ```php
 <?php 
-use infinitydesign\jalaliDatePicker\jalaliDatePicker;
+use masoud91\jalaliDatePicker\jalaliDatePicker;
 
 echo $form->field(
 		$model, 
