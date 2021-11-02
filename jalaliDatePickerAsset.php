@@ -9,7 +9,7 @@
  * @version 1.0.0
  */
 
-namespace infinitydesign\jalaliDatePicker;
+namespace masoud91\jalaliDatePicker;
 
 use Yii;
 use yii\web\AssetBundle;
