@@ -2,7 +2,7 @@ Bootstrap Jalali Date Picker
 ========================
 Jalali Date Picker for Bootstrap Yii2 Extension
 
-[![Latest Stable Version](https://poser.pugx.org/infinitydesign/yii2-jalali-datepicker/v/stable)](https://packagist.org/packages/infinitydesign/yii2-jalali-datepicker) [![Total Downloads](https://poser.pugx.org/infinitydesign/yii2-jalali-datepicker/downloads)](https://packagist.org/packages/infinitydesign/yii2-jalali-datepicker) [![License](https://poser.pugx.org/infinitydesign/yii2-jalali-datepicker/license)](https://packagist.org/packages/infinitydesign/yii2-jalali-datepicker)
+[![Latest Stable Version](https://poser.pugx.org/masoud91/yii2-jalali-datepicker/v/stable)](https://packagist.org/packages/infinitydesign/yii2-jalali-datepicker) [![Total Downloads](https://poser.pugx.org/masoud91/yii2-jalali-datepicker/downloads)](https://packagist.org/packages/infinitydesign/yii2-jalali-datepicker) [![License](https://poser.pugx.org/masoud91/yii2-jalali-datepicker/license)](https://packagist.org/packages/infinitydesign/yii2-jalali-datepicker)
 
 Installation
 ------------
@@ -12,13 +12,13 @@ The preferred way to install this extension is through [composer](http://getcomp
 Either run
 
 ```
-php composer.phar require --prefer-dist infinitydesign/yii2-jalali-datepicker "*"
+php composer.phar require --prefer-dist masoud91/yii2-jalali-datepicker "*"
 ```
 
 or add
 
 ```
-"infinitydesign/yii2-jalali-datepicker": "*"
+"masoud91/yii2-jalali-datepicker": "*"
 ```
 
 to the require section of your `composer.json` file.
