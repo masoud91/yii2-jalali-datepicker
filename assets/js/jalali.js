@@ -2,6 +2,32 @@ JalaliDate = {
 	g_days_in_month: [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
 	j_days_in_month: [31, 31, 31, 31, 31, 31, 30, 30, 30, 30, 30, 29]
 };
+function isLeapJalaaliYear(jy) {
+	var breaks = [ -61, 9, 38, 199, 426, 686, 756, 818, 1111, 1181,
+		1210, 1635, 2060, 2097, 2192, 2262, 2324, 2394,
+		2456, 3178 ];
+	var bl = breaks.length,
+		gy = jy + 621,
+		leapJ = -14,
+		jp = breaks[0],
+		jm, jump, leap, n, i;
+
+	if (jy < jp || jy >= breaks[bl - 1]) return false;
+
+	for (i = 1; i < bl; i += 1) {
+		jm = breaks[i];
+		jump = jm - jp;
+		if (jy < jm)
+			break;
+		leapJ += parseInt(jump / 33) * 8 + parseInt((jump % 33) / 4);
+		jp = jm;
+	}
+	n = jy - jp;
+	leapJ += parseInt(n / 33) * 8 + parseInt((n % 33 + 3) / 4);
+	if (((jump % 33) === 4) && (jump - n === 4)) leapJ += 1;
+	leap = (((leapJ + 1) % 33) - 1) < 4;
+	return leap;
+}
 
 JalaliDate.jalaliToGregorian = function(j_y, j_m, j_d)
 {
@@ -12,7 +38,11 @@ JalaliDate.jalaliToGregorian = function(j_y, j_m, j_d)
 	var jm = j_m-1;
 	var jd = j_d-1;
 
-	var j_day_no = 365*jy + parseInt(jy / 33)*8 + parseInt((jy%33+3) / 4);
+	var j_day_no = 0;
+	for (var i = 0; i < jy; ++i) {
+		j_day_no += isLeapJalaaliYear(i) ? 366 : 365;
+	}
+
 	for (var i=0; i < jm; ++i) j_day_no += JalaliDate.j_days_in_month[i];
 
 	j_day_no += jd;

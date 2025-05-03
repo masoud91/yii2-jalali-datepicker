@@ -74,35 +74,43 @@ function jd_to_islamic(jd)
     jd = Math.floor(jd) + 0.5;
     year = Math.floor(((30 * (jd - ISLAMIC_EPOCH)) + 10646) / 10631);
     month = Math.min(12,
-                Math.ceil((jd - (29 + islamic_to_jd(year, 1, 1))) / 29.5) + 1);
+        Math.ceil((jd - (29 + islamic_to_jd(year, 1, 1))) / 29.5) + 1);
     day = (jd - islamic_to_jd(year, month, 1)) + 1;
     return new Array(year, month, day);
 }
 
 function leap_persian(year)
 {
-    return ((((((year - ((year > 0) ? 474 : 473)) % 2820) + 474) + 38) * 682) % 2816) < 682;
+    var result;
+    switch (year){
+        case 1403:
+            result = true;
+            break;
+        case 1404:
+            result = false;
+            break;
+        default:
+            result = ((((((year - ((year > 0) ? 474 : 473)) % 2820) + 474) + 38) * 682) % 2816) < 682;
+    }
+    return result;
 }
 var PERSIAN_EPOCH = 1948320.5;
-function persian_to_jd(year, month, day)
-{
-    var epbase, epyear;
+function persian_to_jd(year, month, day) {
+    var epBase, epYear;
+    epBase = year - ((year >= 0) ? 474 : 473);
+    epYear = 474 + mod(epBase, 2820);
+    let mDays = (month <= 7) ? ((month - 1) * 31) : (((month - 1) * 30) + 6);
+    let additionalDay = (year === 1404) ? 1 : 0;
 
-    epbase = year - ((year >= 0) ? 474 : 473);
-    epyear = 474 + mod(epbase, 2820);
-
-    return day +
-            ((month <= 7) ?
-                ((month - 1) * 31) :
-                (((month - 1) * 30) + 6)
-            ) +
-            Math.floor(((epyear * 682) - 110) / 2816) +
-            (epyear - 1) * 365 +
-            Math.floor(epbase / 2820) * 1029983 +
-            (PERSIAN_EPOCH - 1);
+    return day + mDays +
+        Math.floor(((epYear * 682) - 110) / 2816) +
+        (epYear - 1) * 365 +
+        additionalDay +
+        Math.floor(epBase / 2820) * 1029983 +
+        (PERSIAN_EPOCH - 1);
 }
-function jd_to_persian(jd)
-{
+
+function jd_to_persian(jd) {
     var year, month, day, depoch, cycle, cyear, ycycle,
         aux1, aux2, yday;
 
@@ -118,14 +126,20 @@ function jd_to_persian(jd)
         aux1 = Math.floor(cyear / 366);
         aux2 = mod(cyear, 366);
         ycycle = Math.floor(((2134 * aux1) + (2816 * aux2) + 2815) / 1028522) +
-                    aux1 + 1;
+            aux1 + 1;
     }
     year = ycycle + (2820 * cycle) + 474;
     if (year <= 0) {
         year--;
     }
     yday = (jd - persian_to_jd(year, 1, 1)) + 1;
+
     month = (yday <= 186) ? Math.ceil(yday / 31) : Math.ceil((yday - 6) / 30);
     day = (jd - persian_to_jd(year, month, 1)) + 1;
+    if(month===0 && day===31){
+        year--
+        month = 12;
+        day = 30;
+    }
     return new Array(year, month, day);
 }

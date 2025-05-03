@@ -893,8 +893,18 @@
 				navStep: 10
 		}],
 		isLeapYear: function (year) {
-			//return (((year % 4 === 0) && (year % 100 !== 0)) || (year % 400 === 0));
-			return ((((((year - ((year > 0) ? 474 : 473)) % 2820) + 474) + 38) * 682) % 2816) < 682;
+            var result;
+            switch (year){
+                case 1403:
+                    result = true;
+                    break;
+                case 1404:
+                    result = false;
+                    break;
+                default:
+                    result = ((((((year - ((year > 0) ? 474 : 473)) % 2820) + 474) + 38) * 682) % 2816) < 682;
+            }
+            return result;
 		},
 		getDaysInMonth: function (year, month) {
 			//return [31, (DPGlobal.isLeapYear(year) ? 29 : 28), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][month];
